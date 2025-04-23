@@ -1,0 +1,29 @@
+Function LinearSuccessor(A, x):
+    for i from x+1 to len(A)-1:
+        if A[i] == 1:
+            return i
+    return ∞
+
+Function Successor(V, x):
+    i = high(x)
+    j = low(x)
+
+    if is_base_case(V.cluster[i]):         # base case, linear scan
+        j = LinearSuccessor(V.cluster[i], j)
+    else:
+        j = Successor(V.cluster[i], j)
+
+    if j != ∞:
+        return index(i, j)
+
+    i = Successor(V.summary, i)
+    if i == ∞:
+        return ∞
+
+    if is_base_case(V.cluster[i]):
+        j = LinearSuccessor(V.cluster[i], -1)
+    else:
+        j = Successor(V.cluster[i], -1)
+
+    return index(i, j)
+
